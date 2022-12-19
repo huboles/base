@@ -1,14 +1,19 @@
 SHELL = /bin/bash
-PROG = printbin
+PROG = base
+PREFIX = /usr
+DESTDIR = /bin
 
-debug:
-	gcc *.c *.h -Wall -lm -g -o printbin
+CFILE = main.c function.c
+HEADER = base.h
 
-printbin:
-	gcc *.c *.h -Wall -lm -o printbin
+header: ${HEADER}
+	gcc ${CFILE} ${HEADER} -lm -Wall -o ${PROG}
 
-install:
-	gcc *.c *.h -Wall -lm -o /home/huck/.local/bin/printbin
+install: ${CFILE} ${HEADER}
+	gcc ${CFILE} ${HEADER} -lm -Wall -o ${PREFIX}${DESTDIR}/${PROG}
 
-clean: 
-	rm /home/huck/.local/bin/printbin
+debug: ${CFILE}
+	gcc ${CFILE} -lm -Wall -g -o ${PROG}
+
+clean:
+	rm ${PREFIX}${DESTDIR}/${PROG}
