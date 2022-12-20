@@ -1,7 +1,8 @@
 # *base* - CLI utility to convert numbers between arbitrary bases.
 
+*base* 
 
-Usage:
+## Usage:
 
 - Print binary representation:
 
@@ -25,11 +26,21 @@ Usage:
 
         $ echo "123456" | base -o 8
 
+        361100
 
-Installation (installs to /usr/bin by default):
+## Installation :
 
-    Download .zip or .tar.gz
+- Download .zip or .tar.gz and decompress
+
+        $ unzip base-{branch}.zip 
+
+    OR 
+
+        $ tar -I gzip -cvf base-{branch}.tar.gz
      
-    $ cd base
-    $ sudo make install
+- Build base from source
+    
+        $ cd base-{branch}
+
+        $ sudo make install
 
