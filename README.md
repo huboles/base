@@ -1,30 +1,35 @@
-printbin - A quick utility to print a number in it's binary representation.
+# *base* - CLI utility to convert numbers between arbitrary bases.
+
 
 Usage:
 
-    Print binary representation:
-        $ printbin 555
-        |>  
+- Print binary representation:
+
+        $ base 555
+
+        00000000 00000000 00000000 00000000 00000000 00000000 00000010 00101011
     
-    Print a 16 bit representation:
+- Print a number in base 16:
 
-        $ printbin -b 16 -n 1234
-        |>  00000100 11010010
+        $ base -o 16  1234
 
-    Print an 8 bit representation of a base 16 number
-        $ printbin -b 8 -a 16 -n 5a
-        |>  01011010
+        0x4d2
 
-    Accept input and output binary number;
-        $ printbin
-            >   333
-        |>   00000000 00000000 00000000 00000000 00000000 00000000 00000001 01001101
+- Print an base 8 representation of a base 12 number
 
-printbin always prints a base 10 number up to 64 bits, unless the number of bits is set with -b, or the base is set with -a, if base or bits are specified, the number must be proceeded by -n.
+        $ base -o 8 -i 16 5a
+
+        106
+
+- Call without an input number to convert stdin
+
+        $ echo "123456" | base -o 8
+
 
 Installation (installs to /usr/bin by default):
+
+    Download .zip or .tar.gz
      
-    $ git clone "https://git.huck.website/huboles/printbin.git"
-    $ cd printbin
-    $ sudo make clean install
+    $ cd base
+    $ sudo make install
 
