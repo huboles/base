@@ -4,29 +4,33 @@ void help(void);
 
 int main(int argc, char *argv[]){
     char *l = malloc(20*sizeof(char));
+    char *L = malloc(20*sizeof(char));
     char *i = malloc(20*sizeof(char));
     char *o = malloc(20*sizeof(char));
     char *n = malloc(60*sizeof(char));
     char c;
-    int len,ibase,obase;
+    int ibase,obase,start,end;
 
     /* print stdin in binary if called alone */
     if (argc == 1) {
         scanf("%s",n);
-        printbin(strtol(n, NULL, 10),64);
+        printbin(strtol(n, NULL, 10),0,0);
         return 0;
     /* print base 10 number in binary if given with no arguments */
     } else if (argc == 2) {
-        printbin(strtol(argv[1],NULL,10),64);
+        printbin(strtol(argv[1],NULL,10),0,0);
         return 0;
     } else {
-        while ((c = getopt (argc, argv, "ho:i:l:n:")) != -1){
+        while ((c = getopt (argc, argv, "ho:i:l:L:n:")) != -1){
             switch (c) {
                 case 'h':
                     help();
                     return 0;
                 case 'l':
                     strcpy(l,optarg);
+                    break;
+                case 'L':
+                    strcpy(L,optarg);
                     break;
                 case 'i':
                     strcpy(i,optarg);
@@ -58,12 +62,18 @@ int main(int argc, char *argv[]){
     }
 
     if (strcmp(l,"") != 0) {
-        len = strtol(l,NULL,10);
+        start = strtol(l,NULL,10);
     } else {
-        len = 64;
+        start = 0;
     }
 
-    printnum(n,ibase,obase,len);
+    if (strcmp(L,"") != 0) {
+        end = strtol(l,NULL,10);
+    } else {
+        end = 0;
+    }
+
+    printnum(n,ibase,obase,start,end);
     return 0;
 }
 

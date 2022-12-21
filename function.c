@@ -3,7 +3,7 @@
 /* enumerate up to base 64 */
 static char digits[] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-void printnum(char *bin, int ibase, int obase, int len){
+void printnum(char *bin, int ibase, int obase, int start, int end){
 
     int out = getnum(bin,ibase);
 
@@ -18,38 +18,54 @@ void printnum(char *bin, int ibase, int obase, int len){
             printf("%o\n", out);
             break;
         case (2):
-            printbin(out,len);
+            printbin(out,start,end);
             break;
         default:
-            printbase(out,obase);
+            printbase(out,obase,start,end);
             break;
     }
 }
 
-void printbase(int num, int base){
+void printbase(int num, int base, int start, int end){
     int n = 0;
     char *s = malloc(100*sizeof(char));
     while (num > 0){
         s[n++] = digits[num%base];
         num /= base;
     }
-    for (int i = n - 1; i >= 0; i--){
-        printf("%c",s[i]);
-        printf("%s",(i%3==0) ? " " : "");
+
+    if (end != 0) {
+        /* print leading zeroes if needed */
+        if (end >= n) {
+            while (end-- >= n) printf("0"); 
+        /* truncate n if there are too many digits */
+        } else {
+            n = end;
+        }
     }
+
+    /* print in reverse order of magnitude */
+    for (int i = n - 1; i >= start; printf("%c",s[i--]))
+
+    while (start-- > 0) printf("0");
+
     printf("\n");
+    return;
 }
 
-void printbin(int i, int n){
-    unsigned long mask = pow(2,n-1);
+void printbin(int i, int start, int end){
+    unsigned long mask = pow(2,(end != 0) ? end-1 : 63);
 
-    for (int t = n-1; t >= 0; t-- ){
+    for (int t = (end !=0) ? end : 63; t >= start; t-- ){
         printf("%i",((i & mask) == 0) ? 0 : 1);
         printf("%s",(t % 8 == 0) ? " " : "");
         mask = mask >> 1;
     }
-    printf("\n");
 
+    while (start-- > 0) printf("0");
+
+    printf("\n");
+    return;
 }
 
 int getnum(char *num, int base){
