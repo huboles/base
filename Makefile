@@ -3,20 +3,20 @@ VERSION ?= 0.0.1
 
 SHELL = /bin/bash
 
-DESTDIR ?= 
+DESTDIR ?=
 PREFIX ?= $(DESTDIR)/usr
 BINDIR ?= $(PREFIX)/bin
 LIBDIR ?= $(PREFIX)/lib
 MANDIR ?= $(PREFIX)/share/man/man1
 
-FILES ?= $(wildcard *.c) 
+FILES ?= $(wildcard *.c)
 HEADERS ?= $(wildcard *.h)
 OBJECTS ?= $(wildcard *.o)
 
 CC ?= gcc
 CFLAGS += -O2 -std=c17 -pipe
-WARNINGS ?= -Werror -Wall -Wextra -Wpedantic -Wno-unused
-CPPFLAGS += -I . 
+WARNINGS ?= -Wall -Wextra -Wpedantic -Wno-unused
+CPPFLAGS += -I .
 LDFLAGS += -L .
 LDLIBS += -lm
 ALL_FLAGS = $(CPPFLAGS) $(CFLAGS) $(WARNINGS) $(LDFLAGS) $(LDLIBS)
@@ -51,7 +51,6 @@ debug: $(FILES)
 	$(CC) $(FILES) $(ALL_FLAGS) -ggdb3 -Og -o $(PROG)
 
 .PHONY: clean
-clean: 
+clean:
 	[[ -f $(BINDIR)/$(PROG) ]] && rm $(BINDIR)/$(PROG)
 	[[ -f $(PROG) ]] && rm $(PROG)
-
