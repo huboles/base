@@ -1,0 +1,12 @@
+# base v0.2
+
+converts between numeric bases
+
+## building base:
+    $ make && sudo make install
+
+## flags:
+    -n input number (otherwise stdin)
+    -i input base (default 10)
+    -o output base (default binary)
+    -l number of digits to print
